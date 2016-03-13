@@ -85,7 +85,6 @@ namespace WebCrawler
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
             URL url = new URL(textBox1.Text.ToString(), null, 0);
             SheardData.Watch.Start();
             SheardData.FoundURL.Add(url);

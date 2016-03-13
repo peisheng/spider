@@ -58,7 +58,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 32);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Searsh";
+            this.button1.Text = "抓取";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -76,18 +76,18 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(-2, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Start Link";
+            this.label1.Text = "开始连接";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(-2, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Found Pages";
+            this.label2.Text = "找到页面";
             // 
             // label3
             // 
@@ -103,9 +103,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(111, 38);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 13);
+            this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Download Pages";
+            this.label4.Text = "已下载页面";
             // 
             // label5
             // 
@@ -121,9 +121,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(247, 38);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(91, 13);
+            this.label6.Size = new System.Drawing.Size(67, 13);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Errors Number";
+            this.label6.Text = "下载错误数";
             // 
             // label7
             // 
@@ -148,18 +148,18 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(361, 38);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(71, 13);
+            this.label9.Size = new System.Drawing.Size(55, 13);
             this.label9.TabIndex = 10;
-            this.label9.Text = "Used Bytes";
+            this.label9.Text = "使用字节";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(496, 38);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 13);
+            this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 11;
-            this.label10.Text = "Timer";
+            this.label10.Text = "运行时间";
             // 
             // label11
             // 
@@ -199,12 +199,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "N";
-            this.columnHeader1.Width = 30;
+            this.columnHeader1.Width = 65;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Depth";
-            this.columnHeader2.Width = 42;
+            this.columnHeader2.Width = 125;
             // 
             // columnHeader3
             // 

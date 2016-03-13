@@ -37,14 +37,33 @@ namespace WebCrawler
                         string str = Hrfs[ind].Link;
                         Regex rgx = new Regex("[^a-zA-Z0-9 -]");
                         str = rgx.Replace(str, "");
-                        using (WebClient client = new WebClient())
-                        {
-                            client.DownloadFileCompleted += DownloadCompleted; //Download file Completed event
-                            string path = System.IO.Path.Combine(@"C:\CrawlePages\", Hrfs[ind].Host); // create a path
-                            CreatFolder(path); // creat folder
-                            path = System.IO.Path.Combine(path, str + ".html"); // create final path
-                            client.DownloadFileAsync(new Uri(Hrfs[ind].Link), @path, new Uri(Hrfs[ind].Link)); // Download File Async to allow thread working
-                        }
+                        //using (WebClient client = new WebClient())
+                        //{
+                        //    client.DownloadFileCompleted += DownloadCompleted; //Download file Completed event
+                        //    string path = System.IO.Path.Combine(@"C:\CrawlePages\", Hrfs[ind].Host); // create a path
+                        //    CreatFolder(path); // creat folder
+                        //    path = System.IO.Path.Combine(path, str + ".html"); // create final path
+                        //    client.DownloadFileAsync(new Uri(Hrfs[ind].Link), @path, new Uri(Hrfs[ind].Link)); // Download File Async to allow thread working
+                        //}
+                        HttpHelper helper = new HttpHelper();
+                        HttpItem item = new HttpItem();
+                        item.URL = Hrfs[ind].Link;
+                       //HttpResult result= helper.GetHtml(item);
+                       //File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory+"//result.txt",result.Html);
+                       Uri url = uri;
+                       SheardData.DownloadedPagesNumber++; ;// increace the number of download pages when download end
+                       SheardData.Downloded.Add(url.ToString());
+
+                       HtmlAgilityPack.HtmlWeb hw = new HtmlAgilityPack.HtmlWeb();
+                       HtmlAgilityPack.HtmlDocument doc = hw.Load(item.URL);
+                       HtmlAgilityPack.HtmlNode node=doc.DocumentNode.SelectSingleNode("//title");
+                       string title = node.InnerText;
+                       string contentHtml = doc.DocumentNode.InnerHtml;
+                       string content = GetMainContentHelper.GetMainContent(contentHtml);
+                       content += "==============================\n";
+                       File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "//result.txt", content);
+                       
+
                     }
                 }
                );
@@ -54,11 +73,13 @@ namespace WebCrawler
                 SheardData.ErrorsNumber += 1;// increace the number of errors
             }
         }
-        private void DownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            Uri url = e.UserState as Uri;
-            SheardData.DownloadedPagesNumber++; ;// increace the number of download pages when download end
-            SheardData.Downloded.Add(url.ToString()); // insert page downloaded link in downloaded list "Make it visted"
-        }
+        //private void DownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        //{
+        //    Uri url = e.UserState as Uri;
+        //    SheardData.DownloadedPagesNumber++; ;// increace the number of download pages when download end
+        //    SheardData.Downloded.Add(url.ToString()); // insert page downloaded link in downloaded list "Make it visted"
+        //}
+
+
     }
 }

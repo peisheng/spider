@@ -10,3 +10,22 @@ c:\users\hamada\documents\visual studio 2013\Projects\WebCrawler\WebCrawler\bin\
 c:\users\hamada\documents\visual studio 2013\Projects\WebCrawler\WebCrawler\bin\Debug\HtmlAgilityPack.xml
 c:\users\hamada\documents\visual studio 2013\Projects\WebCrawler\WebCrawler\obj\Debug\WebCrawler.exe
 c:\users\hamada\documents\visual studio 2013\Projects\WebCrawler\WebCrawler\obj\Debug\WebCrawler.pdb
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.csprojResolveAssemblyReference.cache
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.AutoPost.resources
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.Form1.resources
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.Properties.Resources.resources
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.csproj.GenerateResource.Cache
+E:\carrerGit\spider\WebCrawler\bin\Debug\WebCrawler.exe.config
+E:\carrerGit\spider\WebCrawler\bin\Debug\WebCrawler.exe
+E:\carrerGit\spider\WebCrawler\bin\Debug\WebCrawler.pdb
+E:\carrerGit\spider\WebCrawler\bin\Debug\HtmlAgilityPack.dll
+E:\carrerGit\spider\WebCrawler\bin\Debug\WordPressSharp.dll
+E:\carrerGit\spider\WebCrawler\bin\Debug\CookComputing.XmlRpcV2.dll
+E:\carrerGit\spider\WebCrawler\bin\Debug\HtmlAgilityPack.pdb
+E:\carrerGit\spider\WebCrawler\bin\Debug\HtmlAgilityPack.xml
+E:\carrerGit\spider\WebCrawler\bin\Debug\WordPressSharp.pdb
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.exe
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.pdb
+E:\carrerGit\spider\WebCrawler\bin\Debug\HtmlAgilityPack.Extensions.dll
+E:\carrerGit\spider\WebCrawler\bin\Debug\HtmlAgilityPack.Extensions.pdb
+E:\carrerGit\spider\WebCrawler\obj\Debug\WebCrawler.Setting.resources

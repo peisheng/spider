@@ -29,6 +29,7 @@ namespace WebCrawler
         }
         public void Parsing(URL Url)
         {
+           
             List<URL> Href = new List<URL>();
             HtmlAgilityPack.HtmlWeb hw = new HtmlAgilityPack.HtmlWeb();
             HtmlAgilityPack.HtmlDocument doc = hw.Load(Url.Link);
