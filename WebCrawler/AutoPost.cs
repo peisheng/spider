@@ -12,32 +12,19 @@ namespace WebCrawler
 {
     public partial class AutoPost : Form
     {
+        List<string> targetSites = new List<string>();
         public AutoPost()
         {
-            InitializeComponent();
-            bindComList();
-        }
-
-        private void bindComList()
+            InitializeComponent();            
+            bindSourceSetting();
+        } 
+        private void bindSourceSetting()
         {
-            var items = getList().Select(p => p.JoinString);
-            this.comboBox1.Items.AddRange(items.ToArray());
-
-
-        }
-        private List<SiteNameValue> getList()
-        {
-            List<SiteNameValue> list = new List<SiteNameValue>();
-            string[] array = { "完美诛仙", "圣灵诛仙", "玄月诛仙", "缘定诛仙", "诛仙发布网" };
-            for (int i = 0; i < array.Length; i++)
-            {
-                SiteNameValue site = new SiteNameValue();
-                site.SiteName = array[i];
-                site.SiteValue = i + 1;
-                list.Add(site);
-            }
-            return list;
-        }
+            this.comSource.Items.Clear();
+            SettingModel setting = SettingHelper.GetSetting();
+            var list = setting.SettingList.Select(p => p.SourceName).ToArray();
+            this.comSource.Items.AddRange(list);
+        } 
 
         string startUrl = "";
         List<LinkEntity> list = new List<LinkEntity>();
@@ -120,24 +107,48 @@ namespace WebCrawler
         
 
         private void btnSendPost_Click(object sender, EventArgs e)
-        {
-            
+        {            
                 List<string> linkUrl = new List<string>();
                 foreach (var item in this.chkBox.CheckedItems)
                 {
                     string url = item.ToString().Split(new string[1] { "||||" }, StringSplitOptions.None)[1];
                     linkUrl.Add(url);
-                }
-                 
+                }                 
                 WpHelper helper = new WpHelper();
-                helper.AutoPost(linkUrl);  
-            
+                helper.AutoPost(linkUrl);              
         }
 
         private void btnSetting_Click(object sender, EventArgs e)
         {
             Setting setting = new Setting();
             setting.ShowDialog();
+        }
+
+        private void comSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(this.comSource.SelectedItem!=null)
+            {
+                string sourceName = this.comSource.SelectedItem.ToString();
+                ParserSetting  set=SettingHelper.GetParserSetting(sourceName);
+                if (set != null)
+                {
+                    this.txtUrl.Text = set.SourceUrl;
+                    this.txtContentMark.Text = set.ContentSelectMark;
+                    var list=set.TargetSiteUrl.ToArray();
+                    this.txtReplaceForm.Text = set.ReplaceFrom;
+                    this.txtReplaceTo.Text = set.ReplaceTo;
+                    this.targetSiteList.Items.AddRange(list);
+                    this.targetSites.Clear();
+                    this.targetSites.AddRange(list);
+                }
+                
+
+            }
+        }
+
+        private void btnRunAll_Click(object sender, EventArgs e)
+        {
+
         }
 
 

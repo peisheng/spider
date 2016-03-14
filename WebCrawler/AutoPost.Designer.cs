@@ -33,11 +33,17 @@
             this.btnGet = new System.Windows.Forms.Button();
             this.chkBox = new System.Windows.Forms.CheckedListBox();
             this.chkAll = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnSendPost = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
             this.comSource = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtContentMark = new System.Windows.Forms.TextBox();
+            this.targetSiteList = new System.Windows.Forms.ListBox();
+            this.txtReplaceForm = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtReplaceTo = new System.Windows.Forms.TextBox();
+            this.btnRunAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -75,13 +81,13 @@
             this.chkBox.Location = new System.Drawing.Point(88, 76);
             this.chkBox.Name = "chkBox";
             this.chkBox.ScrollAlwaysVisible = true;
-            this.chkBox.Size = new System.Drawing.Size(1043, 516);
+            this.chkBox.Size = new System.Drawing.Size(1043, 356);
             this.chkBox.TabIndex = 3;
             // 
             // chkAll
             // 
             this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(88, 611);
+            this.chkAll.Location = new System.Drawing.Point(88, 445);
             this.chkAll.Name = "chkAll";
             this.chkAll.Size = new System.Drawing.Size(48, 16);
             this.chkAll.TabIndex = 4;
@@ -89,17 +95,9 @@
             this.chkAll.UseVisualStyleBackColor = true;
             this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(559, 606);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 5;
-            // 
             // btnSendPost
             // 
-            this.btnSendPost.Location = new System.Drawing.Point(705, 603);
+            this.btnSendPost.Location = new System.Drawing.Point(1000, 438);
             this.btnSendPost.Name = "btnSendPost";
             this.btnSendPost.Size = new System.Drawing.Size(131, 23);
             this.btnSendPost.TabIndex = 6;
@@ -124,6 +122,7 @@
             this.comSource.Name = "comSource";
             this.comSource.Size = new System.Drawing.Size(188, 20);
             this.comSource.TabIndex = 8;
+            this.comSource.SelectedIndexChanged += new System.EventHandler(this.comSource_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -134,16 +133,83 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "加载配置：";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(161, 446);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "提取标志：";
+            // 
+            // txtContentMark
+            // 
+            this.txtContentMark.Location = new System.Drawing.Point(223, 443);
+            this.txtContentMark.Name = "txtContentMark";
+            this.txtContentMark.ReadOnly = true;
+            this.txtContentMark.Size = new System.Drawing.Size(229, 21);
+            this.txtContentMark.TabIndex = 11;
+            // 
+            // targetSiteList
+            // 
+            this.targetSiteList.FormattingEnabled = true;
+            this.targetSiteList.ItemHeight = 12;
+            this.targetSiteList.Location = new System.Drawing.Point(496, 438);
+            this.targetSiteList.Name = "targetSiteList";
+            this.targetSiteList.Size = new System.Drawing.Size(468, 64);
+            this.targetSiteList.TabIndex = 12;
+            // 
+            // txtReplaceForm
+            // 
+            this.txtReplaceForm.Location = new System.Drawing.Point(163, 470);
+            this.txtReplaceForm.Name = "txtReplaceForm";
+            this.txtReplaceForm.ReadOnly = true;
+            this.txtReplaceForm.Size = new System.Drawing.Size(110, 21);
+            this.txtReplaceForm.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(279, 471);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "=>";
+            // 
+            // txtReplaceTo
+            // 
+            this.txtReplaceTo.Location = new System.Drawing.Point(302, 468);
+            this.txtReplaceTo.Name = "txtReplaceTo";
+            this.txtReplaceTo.ReadOnly = true;
+            this.txtReplaceTo.Size = new System.Drawing.Size(150, 21);
+            this.txtReplaceTo.TabIndex = 15;
+            // 
+            // btnRunAll
+            // 
+            this.btnRunAll.Location = new System.Drawing.Point(1000, 471);
+            this.btnRunAll.Name = "btnRunAll";
+            this.btnRunAll.Size = new System.Drawing.Size(131, 23);
+            this.btnRunAll.TabIndex = 16;
+            this.btnRunAll.Text = "自动运行全部配置";
+            this.btnRunAll.UseVisualStyleBackColor = true;
+            this.btnRunAll.Click += new System.EventHandler(this.btnRunAll_Click);
+            // 
             // AutoPost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1152, 742);
+            this.ClientSize = new System.Drawing.Size(1152, 503);
+            this.Controls.Add(this.btnRunAll);
+            this.Controls.Add(this.txtReplaceTo);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtReplaceForm);
+            this.Controls.Add(this.targetSiteList);
+            this.Controls.Add(this.txtContentMark);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comSource);
             this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.btnSendPost);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.chkAll);
             this.Controls.Add(this.chkBox);
             this.Controls.Add(this.btnGet);
@@ -163,10 +229,16 @@
         private System.Windows.Forms.Button btnGet;
         private System.Windows.Forms.CheckedListBox chkBox;
         private System.Windows.Forms.CheckBox chkAll;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnSendPost;
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.ComboBox comSource;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtContentMark;
+        private System.Windows.Forms.ListBox targetSiteList;
+        private System.Windows.Forms.TextBox txtReplaceForm;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtReplaceTo;
+        private System.Windows.Forms.Button btnRunAll;
     }
 }

@@ -30,14 +30,15 @@ namespace WebCrawler
                         continue;
                     string title = node.InnerText;
                     string contentHtml = doc.DocumentNode.InnerHtml;
+
                     string content = GetMainContentHelper.GetMainContent(contentHtml);
                     var post = new Post
                     {
                         PostType = "post", // "post" or "page"
                         Title = title,
                         Content = content,
-                        PublishDateTime = DateTime.Now.AddDays(-3),
-                        Status = "publish" // "draft" or "publish"
+                        PublishDateTime = DateTime.Now,//DateTime.Now.AddDays(-3),
+                        Status = "draft" // "draft" or "publish"
                     };
                     var id=client.NewPost(post); 
                 }
