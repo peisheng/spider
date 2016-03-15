@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtReplaceTo = new System.Windows.Forms.TextBox();
             this.btnRunAll = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -97,7 +98,7 @@
             // 
             // btnSendPost
             // 
-            this.btnSendPost.Location = new System.Drawing.Point(1000, 438);
+            this.btnSendPost.Location = new System.Drawing.Point(1000, 437);
             this.btnSendPost.Name = "btnSendPost";
             this.btnSendPost.Size = new System.Drawing.Size(131, 23);
             this.btnSendPost.TabIndex = 6;
@@ -186,7 +187,7 @@
             // 
             // btnRunAll
             // 
-            this.btnRunAll.Location = new System.Drawing.Point(1000, 471);
+            this.btnRunAll.Location = new System.Drawing.Point(1000, 468);
             this.btnRunAll.Name = "btnRunAll";
             this.btnRunAll.Size = new System.Drawing.Size(131, 23);
             this.btnRunAll.TabIndex = 16;
@@ -194,11 +195,21 @@
             this.btnRunAll.UseVisualStyleBackColor = true;
             this.btnRunAll.Click += new System.EventHandler(this.btnRunAll_Click);
             // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(1000, 500);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(131, 23);
+            this.btnTest.TabIndex = 17;
+            this.btnTest.Text = " 测试标签对应的值";
+            this.btnTest.UseVisualStyleBackColor = true;
+            // 
             // AutoPost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1152, 503);
+            this.ClientSize = new System.Drawing.Size(1152, 535);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btnRunAll);
             this.Controls.Add(this.txtReplaceTo);
             this.Controls.Add(this.label4);
@@ -240,5 +251,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtReplaceTo;
         private System.Windows.Forms.Button btnRunAll;
+        private System.Windows.Forms.Button btnTest;
     }
 }

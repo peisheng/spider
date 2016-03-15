@@ -107,14 +107,16 @@ namespace WebCrawler
         
 
         private void btnSendPost_Click(object sender, EventArgs e)
-        {            
+        {
+            if (this.comSource.SelectedItem == null)
+                return;
                 List<string> linkUrl = new List<string>();
                 foreach (var item in this.chkBox.CheckedItems)
                 {
                     string url = item.ToString().Split(new string[1] { "||||" }, StringSplitOptions.None)[1];
                     linkUrl.Add(url);
                 }                 
-                WpHelper helper = new WpHelper();
+                WpHelper helper = new WpHelper(this.comSource.SelectedItem.ToString());
                 helper.AutoPost(linkUrl);              
         }
 
