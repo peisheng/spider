@@ -50,6 +50,7 @@
     <Compile Include="AutoPost.Designer.cs">
       <DependentUpon>AutoPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="common\ParserHelper.cs" />
     <Compile Include="common\SettingHelper.cs" />
     <Compile Include="Distance.cs" />
     <Compile Include="DownloadPages.cs" />
