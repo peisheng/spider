@@ -9,12 +9,12 @@ using HtmlAgilityPack;
 using HtmlAgilityPack.Extensions;
 
 using System.Text.RegularExpressions;
+using System.Threading;
 namespace WebCrawler
 {
     public class WpHelper
     {
         string _sourceName = string.Empty;
-
         public string SourceName
         {
             get { return this._sourceName; }
@@ -69,38 +69,64 @@ namespace WebCrawler
             string tempHtml = string.Empty;
             if (!string.IsNullOrEmpty(replaceFrom))
             {
-                Regex reg = new Regex(replaceFrom);
-               tempHtml= reg.Replace(doc.DocumentNode.InnerHtml, replaceTo);
-               doc.LoadHtml(tempHtml);              
+                string[] arrFrom = replaceFrom.Split(new string[1] { "|" }, StringSplitOptions.None);
+                string[] arrTo = replaceTo.Split(new string[1] { "1" }, StringSplitOptions.None);
+                if (arrFrom.Length == arrTo.Length)
+                {
+                    for (int i = 0; i < arrFrom.Length; i++)
+                    {
+                        Regex reg = new Regex(arrFrom[i]);
+                        tempHtml = reg.Replace(doc.DocumentNode.InnerHtml, arrTo[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < arrFrom.Length; i++)
+                    {
+                        Regex reg = new Regex(arrFrom[i]);
+                        tempHtml = reg.Replace(doc.DocumentNode.InnerHtml, "");
+                    }
+                }
+                doc.LoadHtml(tempHtml);
             }
-            
+
             HtmlAgilityPack.HtmlNode node = doc.DocumentNode.SelectSingleNode("//title");
             if (node == null)
+                return null;
+            if (node.InnerText.Trim().Length < 5)
                 return null;
             entity.Title = node.InnerText;
             entity.ConfuseTitle = ParserHelper.GetConfuseTitle(entity.Title);
             entity.HtmlContent = doc.DocumentNode.InnerHtml;
             entity.TextContent = GetMainContentHelper.GetMainContent(entity.HtmlContent);
-            var list=doc.Select(ParserSetting.ContentSelectMark);
-            var markHtmlContent= new StringBuilder();
-            var markTextContent=new StringBuilder();
-            if(list.Count()>0)
-            {   
+            List<HtmlNode> list = new List<HtmlNode>();
+            if (string.IsNullOrEmpty(ParserSetting.ContentSelectMark))
+                return null;
+            string[] arrMark = ParserSetting.ContentSelectMark.Split(new string[1] { "|" }, StringSplitOptions.None);
+            for (int i = 0; i < arrMark.Length; i++)
+            {
+                var tempList = doc.Select(arrMark[i]);
+                list.AddRange(tempList);
+            }
+            var markHtmlContent = new StringBuilder();
+            var markTextContent = new StringBuilder();
+            if (list.Count() > 0)
+            {
                 foreach (var item in list)
-	            {
-		              markHtmlContent.Append(item.InnerHtml);
-                     markTextContent.Append(item.InnerText);
-	            }
+                {
+                    markHtmlContent.Append(item.InnerHtml);
+                    markTextContent.Append(item.InnerText);
+                }
             }
             entity.MarkHtmlContent = markHtmlContent.ToString();
             entity.MarkTextContent = markTextContent.ToString();
             entity.ConfuseHtmlContent = ParserHelper.GetConfuseHtmlContent(entity.MarkHtmlContent);
-            entity.ConfuseTextContent = ParserHelper.GetConfuseTextContent(entity.MarkTextContent); 
+            entity.ConfuseTextContent = ParserHelper.GetConfuseTextContent(entity.MarkTextContent);
             return entity;
         }
 
-       
-        
+
+
 
         private WordPressClient GetWpClient(string configName = "")
         {
@@ -109,35 +135,61 @@ namespace WebCrawler
         }
         public void AutoPost(List<string> listUrl)
         {
-            if (listUrl.Count == 0)            
-                return;
-          
-            var configs = ReadyConfigs();
-            if (configs.Count == 0)
-                return;
-                
-            foreach(string s in listUrl)
-            {
-                ParserEntity entity = getEntity(s);
-                if (entity != null)
-                {
-                    foreach (var config in configs)
-                    {
-                        using(WordPressClient client=new WordPressClient(config))
-                        {
-                            var post = new Post
-                            {
-                                PostType = "post", // "post" or "page"
-                                Title = entity.ConfuseTitle,
-                                Content =entity.ConfuseHtmlContent,// entity.ConfuseHtmlContent,
-                                PublishDateTime = DateTime.Now,//DateTime.Now.AddDays(-3),
-                                Status = "draft" // "draft" or "publish"
-                            };
-                            var id = client.NewPost(post);
-                        }                        
-                    }
-                }
-            } 
+            Thread thread = new Thread(() =>
+                           {
+                               if (listUrl.Count == 0)
+                                   return;
+                               var configs = ReadyConfigs();
+                               if (configs.Count == 0)
+                                   return;
+                               int i = configs.Count;
+                               int j = 0;
+                               foreach (string s in listUrl)
+                               {
+
+                                   try
+                                   {
+                                       ParserEntity entity = getEntity(s);
+                                       if (entity == null)
+                                           return;
+                                       if (string.IsNullOrEmpty(entity.Title) || string.IsNullOrEmpty(entity.MarkTextContent))
+                                       {
+                                           return;
+                                       }
+                                       var config = configs[j];
+                                       using (WordPressClient client = new WordPressClient(config))
+                                       {
+                                           var post = new Post
+                                           {
+                                               PostType = "post", // "post" or "page"
+                                               Title = entity.ConfuseTitle,
+                                               Content = entity.ConfuseHtmlContent,// entity.ConfuseHtmlContent,
+                                               PublishDateTime = DateTime.Now,//DateTime.Now.AddDays(-3),
+                                               Status = "draft" // "draft" or "publish"
+                                           };
+                                           var id = client.NewPost(post);
+                                       }
+                                       if (j == i - 1)
+                                           j = 0;
+                                       else
+                                       {
+                                           j++;
+                                       }
+                                   }
+                                   catch (Exception ex)
+                                   {
+                                       //记日志
+
+                                   }
+
+
+
+                               }
+
+                              
+                           });
+            thread.Start();
+
         }
     }
 

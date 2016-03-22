@@ -203,6 +203,7 @@
             this.btnTest.TabIndex = 17;
             this.btnTest.Text = " 测试标签对应的值";
             this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // AutoPost
             // 

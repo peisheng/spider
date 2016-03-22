@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -37,32 +38,26 @@ namespace WebCrawler
             if (!string.IsNullOrEmpty(this.txtUrl.Text))
             {
                 startUrl = txtUrl.Text;
-
                 HtmlAgilityPack.HtmlWeb hw = new HtmlAgilityPack.HtmlWeb();
-
-
                 HtmlAgilityPack.HtmlDocument doc = hw.Load(startUrl);
-
                 var obj = doc.DocumentNode.SelectNodes("//a[@href]");
-
                 if (obj != null)
                 {
                     foreach (var item in obj)
                     {
-                        
-                        if (item.InnerText.Replace("&nbsp;","").Length < 8)
+
+                        string title = Regex.Replace(item.InnerText.Replace("&nbsp;", "").Replace("&gt;", ""), @"\s", "");
+                        if (title.Length< 8)
                             continue;
                         LinkEntity le = new LinkEntity();
                         string Link = item.Attributes["href"].Value;
-                        le.LinkTitle = item.InnerText;
+                        le.LinkTitle = title;
                         if (Accumulation_Url(Link, txtUrl.Text).Trim().Length==0)
                         {
-                            continue;
-                            
+                            continue;                            
                         }
                         le.Link = Accumulation_Url(Link, txtUrl.Text);                       
-                        list.Add(le);
-                        
+                        list.Add(le);                        
                         //this.chkBox.Items.Add(le.LinkTitle + "||||" + le.Link);
                     }
                     list.Sort((x, y) =>
@@ -83,7 +78,6 @@ namespace WebCrawler
                     list.ForEach((item) => {
                         this.chkBox.Items.Add(item.LinkTitle + "||||" + item.Link);
                     });
-
                 }
             }
         }
@@ -149,6 +143,11 @@ namespace WebCrawler
         }
 
         private void btnRunAll_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
         {
 
         }
