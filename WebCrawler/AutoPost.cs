@@ -33,6 +33,7 @@ namespace WebCrawler
 
         private void btnGet_Click(object sender, EventArgs e)
         {
+            list.Clear();
 
             this.chkBox.Items.Clear();
             if (!string.IsNullOrEmpty(this.txtUrl.Text))
@@ -45,7 +46,6 @@ namespace WebCrawler
                 {
                     foreach (var item in obj)
                     {
-
                         string title = Regex.Replace(item.InnerText.Replace("&nbsp;", "").Replace("&gt;", ""), @"\s", "");
                         if (title.Length< 8)
                             continue;
@@ -124,6 +124,7 @@ namespace WebCrawler
         {
             if(this.comSource.SelectedItem!=null)
             {
+                this.chkBox.Items.Clear();
                 string sourceName = this.comSource.SelectedItem.ToString();
                 ParserSetting  set=SettingHelper.GetParserSetting(sourceName);
                 if (set != null)

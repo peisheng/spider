@@ -417,6 +417,32 @@ namespace WebCrawler
         /// <param name="errors">SslPolicyErrors</param>
         /// <returns>bool</returns>
         private bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors) { return true; }
+
+
+
+        public static string GetHtml(string Url)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(Url);
+            req.Method = "GET";
+            string str;
+            HttpWebResponse Stream = req.GetResponse() as HttpWebResponse;
+            if (Stream.CharacterSet.ToLower() == "gbk")
+            {
+                using (StreamReader reader = new StreamReader(Stream.GetResponseStream(), System.Text.Encoding.GetEncoding("gb2312")))
+                {
+                    str = reader.ReadToEnd();
+                    return str;
+                }
+            }
+            else
+            {
+                using (StreamReader reader = new StreamReader(Stream.GetResponseStream(), System.Text.Encoding.GetEncoding("utf-8")))
+                {
+                    str = reader.ReadToEnd();
+                    return str;
+                }
+            }
+        } 
         #endregion
     }
     /// <summary>
